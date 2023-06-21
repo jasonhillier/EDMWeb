@@ -2,7 +2,7 @@ import { strtr } from './helpers';
 
 const API_CHECK_URL='https://api.github.com/repos/:owner/:repo/releases/latest';
 const API_OWNER='Laserweb'
-const API_REPO='Laserweb4-binaries'
+const API_REPO='EDMWeb-Binaries'
 
 
 

@@ -3,10 +3,10 @@
 This repository is a "development environment" - and no regular user would have to touch this at all (dont download the repo from here, use the Download links below)
 
 ## Download
-Releases are made available on https://github.com/LaserWeb/LaserWeb4-Binaries/
+Releases are made available on https://github.com/Rack-Robotics/EDMWeb-Binaries/
 
 ## Documentation
-For more documentation, go to the [Wiki](https://github.com/LaserWeb/LaserWeb4/wiki) or our website https://laserweb.yurl.ch
+For more documentation, go to the [Wiki](https://github.com/Rack-Robotics/EDMWeb/wiki) or our website https://laserweb.yurl.ch
 
 ## Docker
 
@@ -40,7 +40,7 @@ docker build -f Dockerfile.release -t laserweb:release .
 
 ## Community
 Please use the community forum on https://forum.makerforums.info/c/laserweb-cncweb for questions and support.
-Please only report confirmed bugs on the git [Issues tab](https://github.com/LaserWeb/LaserWeb4/issues).
+Please only report confirmed bugs on the git [Issues tab](https://github.com/Rack-Robotics/EDMWeb/issues).
 
 ## Supported firmwares
 
@@ -73,5 +73,5 @@ If you want to contribute, below are long standing community-requested enhanceme
 
 ## How to contribute ?
 
-Details on [https://github.com/LaserWeb/LaserWeb4/wiki/How-to-Contribute](https://github.com/LaserWeb/LaserWeb4/wiki/How-to-Contribute)
+Details on [https://github.com/Rack-Robotics/EDMWeb/wiki/How-to-Contribute](https://github.com/Rack-Robotics/EDMWeb/wiki/How-to-Contribute)
 

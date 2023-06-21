@@ -1993,9 +1993,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.2.7:
-  version "1.4.435"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.435.tgz#761c34300603b9f1234f0b6155870d3002435db6"
-  integrity sha512-B0CBWVFhvoQCW/XtjRzgrmqcgVWg6RXOEM/dK59+wFV93BFGR6AeNKc4OyhM+T3IhJaOOG8o/V+33Y2mwJWtzw==
+  version "1.4.436"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.436.tgz#2aa6e1644693d25cb438a873fba72ec901e1be30"
+  integrity sha512-aktOxo8fnrMC8vOIBMVS3PXbT1nrPQ+SouUuN7Y0a+Rw3pOMrvIV92Ybnax7x4tugA+ZpYA5fOHTby7ama8OQQ==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -2224,6 +2224,21 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
   dependencies:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
+
+"ew.comm-server@git+https://github.com/Rack-Robotics/ew.comm-server.git":
+  version "4.1.0"
+  resolved "git+https://github.com/Rack-Robotics/ew.comm-server.git#e63d9626721cfc0af4608b795e7121b5d9d94a48"
+  dependencies:
+    chalk "4.x"
+    dotenv "10.x"
+    ip "^1.1.5"
+    node-abi "^3.45.0"
+    node-hid "^2.1.2"
+    node-static "*"
+    request "*"
+    serialport "9.x"
+    socket.io "4.x"
+    ws "8.x"
 
 expand-brackets@^0.1.4:
   version "0.1.5"
@@ -3879,21 +3894,6 @@ lw.canvas-grid@^0.2.6, "lw.canvas-grid@git+https://github.com/LaserWeb/lw.canvas
   resolved "git+https://github.com/LaserWeb/lw.canvas-grid.git#a6fdb906378b34029f621393cced78f21864ce82"
   dependencies:
     lw.canvas-filters "^0.2.0"
-
-"lw.comm-server@git+https://github.com/Rottschaferanders/lw.comm-server.git":
-  version "4.1.0"
-  resolved "git+https://github.com/Rottschaferanders/lw.comm-server.git#e9c93afd7e5d43cd01476ba14b3be6083ea259de"
-  dependencies:
-    chalk "4.x"
-    dotenv "10.x"
-    ip "^1.1.5"
-    node-abi "^3.45.0"
-    node-hid "^2.1.2"
-    node-static "*"
-    request "*"
-    serialport "9.x"
-    socket.io "4.x"
-    ws "8.x"
 
 "lw.raster-to-gcode@git+https://github.com/LaserWeb/lw.raster-to-gcode.git":
   version "0.6.3"

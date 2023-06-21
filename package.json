@@ -1,22 +1,22 @@
 {
-  "name": "laserweb",
-  "version": "4.0.999",
-  "description": "LaserWeb",
+  "name": "edmweb",
+  "version": "1.0.0",
+  "description": "EDMWeb",
   "main": "./src/index.js",
   "scripts": {
-    "start-server": "node node_modules/lw.comm-server/server.js",
+    "start-server": "node node_modules/ew.comm-server/server.js",
     "start-app": "webpack-dev-server --progress --colors --open",
     "start-prod": "webpack-dev-server -p --progress --colors --open",
     "start": "npm-run-all -p -r start-app start-server",
     "bundle-dev": "webpack --progress --colors",
     "bundle-prod": "webpack -p --progress --colors",
     "build-docs": "jsdoc -c ./jsdoc.json",
-    "installdev": "git submodule init && git submodule update --remote && npm install && npm update lw.comm-server",
+    "installdev": "git submodule init && git submodule update --remote && npm install && npm update ew.comm-server",
     "golive": "git checkout gh-pages && git pull && git merge dev-es6 && npm run bundle-dev && git add dist && git commit -m regen && git push && git checkout dev-es6"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rottschaferanders/LaserWeb4.git"
+    "url": "git+https://github.com/Rack-Robotics/EDMWeb.git"
   },
   "keywords": [
     "laser",
@@ -35,7 +35,7 @@
   ],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/Rottschaferanders/LaserWeb4/issues"
+    "url": "https://github.com/Rack-Robotics/EDMWeb/issues"
   },
   "homepage": "https://laserweb.yurl.ch",
   "devDependencies": {
@@ -71,7 +71,7 @@
     "keyboardjs": "^2.5.1",
     "lw.canvas-filters": "git+https://github.com/LaserWeb/lw.canvas-filters.git",
     "lw.canvas-grid": "git+https://github.com/LaserWeb/lw.canvas-grid.git",
-    "lw.comm-server": "git+https://github.com/Rottschaferanders/lw.comm-server.git",
+    "ew.comm-server": "git+https://github.com/Rack-Robotics/ew.comm-server.git",
     "lw.raster-to-gcode": "git+https://github.com/LaserWeb/lw.raster-to-gcode.git",
     "lw.svg-curves": "^0.1.0",
     "lw.svg-path": "^0.1.0",

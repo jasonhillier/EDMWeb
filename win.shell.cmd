@@ -7,7 +7,7 @@
 
 :: Print commands reminder
 @ECHO.
-@ECHO  LaserWeb Development Environment
+@ECHO  Rack-Robotics Development Environment
 @ECHO -------------------------------------------------------------
 @ECHO  npm install          -  Install the development environment.
 @ECHO  npm start            -  Start the live development server.
