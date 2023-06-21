@@ -2227,7 +2227,7 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
 
 "ew.comm-server@git+https://github.com/Rack-Robotics/ew.comm-server.git":
   version "4.1.0"
-  resolved "git+https://github.com/Rack-Robotics/ew.comm-server.git#e63d9626721cfc0af4608b795e7121b5d9d94a48"
+  resolved "git+https://github.com/Rack-Robotics/ew.comm-server.git#d0af3705c476e14ffa98ab42cfb78dd43a8162dc"
   dependencies:
     chalk "4.x"
     dotenv "10.x"

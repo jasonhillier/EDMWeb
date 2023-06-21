@@ -1,6 +1,6 @@
 [submodule "src/data/lw.machines"]
 	path = src/data/lw.machines
 	url = https://github.com/LaserWeb/lw.machines
-[submodule "src/data/lw.materials"]
-	path = src/data/lw.materials
+[submodule "src/data/ew.materials"]
+	path = src/data/ew.materials
 	url = https://github.com/Rack-Robotics/ew.materials.git

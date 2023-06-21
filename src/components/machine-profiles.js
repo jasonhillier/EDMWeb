@@ -37,7 +37,7 @@ class MachineProfile extends React.Component {
             confirm("Are you sure? Current settings will be overwritten.",(b)=>{
                 if (b) this.props.onApply({...selected.settings , __selectedProfile: profileId });
                 try {
-                    let mdb = require('../data/lw.materials/materials/'+profileId.replace("*","")+".json")
+                    let mdb = require('../data/ew.materials/materials/'+profileId.replace("*","")+".json")
                         if (validate(mdb)){
                             if (mdb) {
                                 confirm(`A material database related with ${profileId} has been detected. Do you want to load it?`,(data)=>{
