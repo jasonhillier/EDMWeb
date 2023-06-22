@@ -270,7 +270,7 @@ class Doc extends React.Component {
                     └ <a style={{ userSelect: 'none', cursor: 'pointer', textDecoration: 'bold', color: '#FFF', paddingLeft: 5, paddingRight: 5, paddingBottom: 3, backgroundColor: '#FF7332', border: '1px solid', borderColor: '#2e6da4', borderRadius: 2 }} onClick={(e) => { this.props.dispatch(selectDocument(id)) }}>{documents.find(d => d.id === id).name}</a>
                 </td>
                 <td>
-                    <button className="btn btn-default btn-xs" onClick={this.remove}>
+                    <button className="btn btn-default btn-xs trash-btn" onClick={this.remove}>
                         <i className="fa fa-trash"></i>
                     </button>
                 </td>

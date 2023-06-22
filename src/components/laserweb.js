@@ -94,7 +94,9 @@ export const alert = (unsafeMessage) => {
 }
 
 const updateTitle=()=>{
-    document.title = `Laserweb ${version}`;
+    // Ders edit
+    // document.title = `Laserweb ${version}`;
+    document.title = `EDMWeb ${version}`;
 }
 
 class LaserWeb extends React.Component {

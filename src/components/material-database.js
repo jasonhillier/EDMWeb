@@ -824,7 +824,7 @@ export class MaterialSaveButton extends React.Component {
         let className = this.props.className;
         //if (this.state.shiftKey) className += ' btn-warning'
         return (
-            <Button title="Export to Material Database" bsStyle="primary" className={className} onClick={(e) => this.handleClick(e)}>{this.props.children}
+            <Button title="Export to Material Database" bsStyle="primary" id="mat-save-btn" className={className} onClick={(e) => this.handleClick(e)}>{this.props.children}
                 <MaterialDatabasePicker types={this.props.types} show={this.state.showModal} onHide={closeModal} onApplyPreset={(operationId) => { this.handleApplyPreset(operationId) }} />
             </Button>
         )

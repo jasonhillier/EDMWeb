@@ -22,14 +22,14 @@ a {
 }
 
 .well {
-    background-color: #474749;
-    border-color: #474749;
+    background-color: #7F7F7F;
+    border-color: #7F7F7F;
 }
 
 .alert-success {
-    color: #FF5900;
-    background-color: #7F7F7F;
-    border-color: #7F7F7F;
+    color: white;
+    background-color: #474749;
+    border-color: #474749;
 }
 
 .btn-xs {
@@ -46,9 +46,28 @@ a {
     border-color: #FF7332;
 }
 
+.form-group>.btn-group>.btn-danger-default {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.form-group>.btn-group>.btn-warning-default {
+    background-color: #FF5900;
+    border-color: #FF5900;
+}
+
+.btn-warning {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
 .btn-info {
     background-color: #FF7332;
     border-color: #FF7332;
+}
+
+.eye-btn {
+    background-color: white;
+    border-color: white;
 }
 
 .btn-primary {
@@ -60,24 +79,128 @@ a {
     border-color: #FF7332;
 }
 
-.panel-danger {
-    border-color: #7F7F7F;
+#mat-save-btn {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
 }
-.panel-danger>.panel-heading {
-    color: #FF5900;
-    background-color: #7F7F7F;
-    border-color: #7F7F7F;
+
+.trash-btn {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.trash-btn>.fa-trash {
+    color: white;
+}
+
+.panel-danger {
+    border-color: #474749;
 }
 
 .panel-info {
+    border-color: #474749;
+}
+
+.panel-primary {
     border-color: #7F7F7F;
 }
 
-.panel-info>.panel-heading {
-    color: #FF5900;
-    background-color: #7F7F7F;
-    border-color: #7F7F7F;
+.panel-danger>.panel-heading {
+    color: white;
+    background-color: #474749;
+    border-color: #474749;
 }
+
+.panel-info>.panel-heading {
+    color: white;
+    background-color: #474749;
+    border-color: #474749;
+}
+
+.panel-primary>.panel-heading {
+    color: white;
+    background-color: #474749;
+    border-color: #474749;
+}
+
+.panel-primary>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: #474749;
+}
+
+.panel-info>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: #474749;
+}
+
+.panel-danger>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: #474749;
+}
+
+.panel-body {
+    background-color: #7F7F7F;
+}
+
+/* .panel-title {
+    color: white;
+} */
+
+.help-block {
+    color: white;
+}
+
+.fa-trash {
+    color: #474749;
+}
+
+.fa-eye {
+    color: #474749;
+}
+
+.btn-default>.fa-cubes {
+    color: black;
+}
+
+.btn-colorPicker>.btn>.fa-pencil {
+    color: black;
+}
+
+.btn-colorPicker>.btn>.fa-paint-brush {
+    color: black;
+}
+
+#stopBtn {
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+
+#playBtn {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+.btn>.fa-arrow-up {
+    color: black;
+}
+
+.btn>.fa-arrow-down {
+    color: black;
+}
+
+.macros>.btn-group>.btn {
+    background-color: #474749;
+    border-color: #474749;
+}
+
+.form>input::placeholder {
+    color: rgb(196, 196, 196);
+}
+
+/* #mPosition>.droPos {
+    color: black;
+} */
+
+
+
+
+
 
 /*Hack for smaller inputs / selects in BS */
 .input-xs {
