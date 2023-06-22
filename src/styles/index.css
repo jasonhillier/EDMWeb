@@ -147,7 +147,8 @@ a {
 }
 
 .fa-trash {
-    color: #474749;
+    /* color: #474749; */
+    color: white;
 }
 
 .fa-eye {

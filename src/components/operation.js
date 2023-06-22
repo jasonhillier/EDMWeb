@@ -526,7 +526,7 @@ export const OPERATION_FIELDS = {
     stepOver: { name: 'stepOver', label: 'Step Over', units: '%', input: NumberInput, ...checkStepOver },
     // passDepth: { name: 'passDepth', label: 'Pass Depth', units: 'mm', input: NumberInput, ...checkPassDepth, ...ifUseZ, contextMenu: FieldContextMenu() },
     passDepth: { name: 'passDepth', label: 'Pass Depth', units: 'mm', input: NumberInput, ...checkPassDepth, ...ifUseZ, contextMenu: FieldContextMenu() },
-    millRapidZ: { name: 'millRapidZ', label: 'Rapid Z', units: 'mm', input: NumberInput },
+    millRapidZ: { name: 'millRapidZ', label: 'Travel Z', units: 'mm', input: NumberInput },
     millStartZ: { name: 'millStartZ', label: 'Start Z', units: 'mm', input: NumberInput, ...checkMillStartZ },
     millEndZ: { name: 'millEndZ', label: 'End Z', units: 'mm', input: NumberInput, ...checkMillEndZ },
     startHeight: { name: 'startHeight', label: 'Start Height', units: 'mm', input: StringInput, contextMenu: FieldContextMenu(), ...checkZHeight, ...ifUseZ },

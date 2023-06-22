@@ -32,13 +32,15 @@ export const OPERATION_INITIALSTATE = {
     stepOver: 40,
     passDepth: 2,
     startHeight: '',
-    millRapidZ: 1000,
+    millRapidZ: 7,
     millStartZ: 0,
     millEndZ: 0,
     // Added for Wire EDM
     wearRatio: 0.03,
     //Added for Wire EDM
     travelSpeed: 1000,
+    // Added for Wire EDM
+    cutStartZ: -4,
     segmentLength: 0,
     tabDepth: 0,
     plungeRate: 20,
