@@ -1,22 +1,47 @@
 export function rackRoboPostProcess(gcode, wear_ratio, plunge_feed_rate, start_z, rapid_z, pass_depth, travel_speed_xy) {
+    // console.log("Start gcode: ", settings.gcodeStart);
     // console.log("Original Gcode: \n", gcode);
+    // console.log("Current Z: ", current_z);
+    // let this_start_z = 0;
+    // if (current_z == 0) {
+    //     console.log("Current Z is 0, pass_depth is: ", pass_depth);
+    //     this_start_z = pass_depth;
+    // } else {
+    //     this_start_z = current_z;
+    //     console.log("Current Z is: ", current_z)
+    // }
     let cuts = find_cuts(gcode);
     // console.log("Cuts: ");
     // log_array_of_strings(cuts.cut_blocks);
-    // console.log("The rest: \n", cuts.the_rest);
+    console.log("The rest: \n", cuts.the_rest);
+    console.log("Subdividing cuts...");
     let subdiv_cuts = subdivide_cuts(cuts.cut_blocks, 0.4);
-    // console.log("Subdivided Cuts: ");
-    // log_array_of_strings(subdiv_cuts);
+    log_array_of_strings(subdiv_cuts);
     // console.log("Z Added: \n");
+    // let cuts_with_z = add_z(subdiv_cuts, wear_ratio, this_start_z);
+    console.log("Wear Ratio: ", wear_ratio);
+    console.log("Pass Depth: ", pass_depth);
+    console.log("Adding Z...")
     let cuts_with_z = add_z(subdiv_cuts, wear_ratio, pass_depth);
+    // console.log("Cuts with Z: \n");
+    // log_array_of_strings(cuts_with_z);
     // log_array_of_strings(z_added);
+    console.log("Finding Plunges...");
     let plunges = find_plunges_cuts_removed(cuts.the_rest);
     // console.log("Plunges: \n");
-    // log_array_of_strings(plunges.plunges);
-    // console.log("Plunges Removed: \n", plunges.the_rest);
+    console.log("Plunges (len is ", plunges.plunges.length, "):");
+    log_array_of_strings(plunges.plunges);
+
+    console.log("Plunges Removed: \n", plunges.the_rest);
+    console.log("Adding Plunge Feeds...");
     let plunges_with_feeds = add_plunge_feeds(plunges.plunges, plunge_feed_rate, travel_speed_xy, 10);
+    // let plunges_cuts_added = put_cuts_and_plunges(cuts_with_z, plunges_with_feeds, plunges.the_rest);
+    console.log("Plunges with Feeds: \n");
+    log_array_of_strings(plunges_with_feeds);
     let plunges_cuts_added = put_cuts_and_plunges(cuts_with_z, plunges_with_feeds, plunges.the_rest);
-    // console.log("Plunges and Cuts Added: \n", plunges_cuts_added);
+    // settings.gcodeStart = settings.gcodeStart + plunges_with_feeds;
+    console.log("Plunges and Cuts Added: \n", plunges_cuts_added);
+    // return { gcode: plunges_cuts_added, plunges: plunges_with_feeds };
     return plunges_cuts_added;
 }
 
@@ -27,6 +52,7 @@ function log_array_of_strings(the_array) {
             string += the_array[i][j];
         }
         string += "\n";
+        string += "--------------------------------------\n";
     }
     console.log(string);
 }
@@ -79,34 +105,36 @@ function find_plunges_cuts_removed(gcode) {
     let lines_to_retract_end = 0;
     for (let i = 0; i < gcode_lines.length; i++) {
         if (gcode_lines[i].substring(0, 9) === "; Retract") {
-            let plunge = "";
-            the_rest += "; add plunge " + retract_counter + "\n";
-            plunge += gcode_lines[i] + "\n";
-            plunge += gcode_lines[i + 1] + "\n";
-            if (gcode_lines[i + 2] !== undefined) {
-                plunge += gcode_lines[i + 2] + "\n";
+            if (gcode_lines[i + 3].substring(0, 6) === "; Path") {
+                let plunge = "";
+                the_rest += "; add plunge " + retract_counter + "\n";
+                plunge += gcode_lines[i] + "\n";
+                plunge += gcode_lines[i + 1] + "\n";
+                if (gcode_lines[i + 2] !== undefined) {
+                    plunge += gcode_lines[i + 2] + "\n";
+                }
+                if (gcode_lines[i + 3] !== undefined) {
+                    plunge += gcode_lines[i + 3] + "\n";
+                }
+                if (gcode_lines[i + 4] !== undefined) {
+                    plunge += gcode_lines[i + 4] + "\n";
+                }
+                if (gcode_lines[i + 5] !== undefined) {
+                    plunge += gcode_lines[i + 5] + "\n";
+                }
+                if (gcode_lines[i + 6] !== undefined) {
+                    plunge += gcode_lines[i + 6] + "\n";
+                }
+                if (gcode_lines[i + 7] !== undefined) {
+                    plunge += gcode_lines[i + 7] + "\n";
+                }
+                if (gcode_lines[i + 8] !== undefined) {
+                    plunge += gcode_lines[i + 8] + "\n";
+                }
+                plunges.push(plunge);
+                retract_counter++;
+                lines_to_retract_end = 8;
             }
-            if (gcode_lines[i + 3] !== undefined) {
-                plunge += gcode_lines[i + 3] + "\n";
-            }
-            if (gcode_lines[i + 4] !== undefined) {
-                plunge += gcode_lines[i + 4] + "\n";
-            }
-            if (gcode_lines[i + 5] !== undefined) {
-                plunge += gcode_lines[i + 5] + "\n";
-            }
-            if (gcode_lines[i + 6] !== undefined) {
-                plunge += gcode_lines[i + 6] + "\n";
-            }
-            if (gcode_lines[i + 7] !== undefined) {
-                plunge += gcode_lines[i + 7] + "\n";
-            }
-            if (gcode_lines[i + 8] !== undefined) {
-                plunge += gcode_lines[i + 8] + "\n";
-            }
-            plunges.push(plunge);
-            retract_counter++;
-            lines_to_retract_end = 8;
         } else {
             if (lines_to_retract_end === 0) {
                 the_rest += gcode_lines[i] + "\n";
@@ -197,10 +225,20 @@ function subdivide_cuts(cut_blocks, threshold) {
 }
 
 function add_z(cuts, wear_ratio, pass_depth) {
+    console.log("Cuts fed into add_z: ");
+    log_array_of_strings(cuts);
+
     let last_xy = [null, null];
     // let lines = gcode.split('\n');
     let current_z = pass_depth;
+    // let current_z = start_z;
+    // if (start_z === undefined) {
+    //     current_z = pass_depth;
+    // } else {
+    //     current_z = start_z;
+    // }
     let files_current_z = pass_depth;
+    // let files_current_z = start_z;
 
     let new_cuts = [];
     for (let i = 0; i < cuts.length; i++) {
@@ -218,6 +256,7 @@ function add_z(cuts, wear_ratio, pass_depth) {
     //     console.log(new_cuts[i].gcode);
     //     console.log("last_z: " + new_cuts[i].last_z);
     // }
+    // return { gcode: new_cuts, current_z: current_z };
     return new_cuts;
 }
 
@@ -321,6 +360,36 @@ function put_cuts_and_plunges(cuts, plunges, gcode) {
     let with_plunges_at_begining = put_plunges_at_begining(new_gcode, plunges);
     return with_plunges_at_begining;
 }
+// function put_cuts_and_plunges(cuts, plunges, gcode) {
+//     let lines = gcode.split('\n');
+
+//     let first_plunge_placed = false;
+//     let new_gcode = "";
+//     for (let i = 0; i < lines.length; i++) {
+//         if (lines[i].substring(0, 12) === "; add plunge") {
+//             let count = parseInt(lines[i].substring(13, lines[i].length));
+//             if (first_plunge_placed) {
+//                 if (cuts[count - 1].last_z === undefined) {
+//                     new_gcode += plunges[count];
+//                 } else {
+//                     let plunge_with_z = update_plunge_z(plunges[count], cuts[count - 1].last_z);
+//                     new_gcode += plunge_with_z;
+//                 }
+//             } else {
+//                 new_gcode += plunges[count];
+//                 first_plunge_placed = true;
+//             }
+//         } else if (lines[i].substring(0, 9) === "; add cut") {
+//             let count = parseInt(lines[i].substring(10, lines[i].length));
+//             new_gcode += cuts[count].gcode;
+//         } else {
+//             new_gcode += lines[i] + "\n";
+//         }
+//     }
+//     // let with_plunges_at_begining = put_plunges_at_begining(new_gcode, plunges);
+//     // return with_plunges_at_begining;
+//     return new_gcode;
+// }
 
 function add_plunge_feeds(plunges, plunge_speed, travel_speed, retract_speed) {
     // let travel_speed = 1000;
@@ -370,6 +439,7 @@ function put_plunges_at_begining(gcode, plunges) {
             found_where_to_put_plunges = true;
         } else if (found_where_to_put_plunges && i === plunges_at_line) {
             new_gcode += lines[i] + "\n";
+            // console.log("Found a place to put plunges at the begining");
             for (let j = 0; j < plunges.length - 1; j++) {
                 new_gcode += plunges[j];
             }
@@ -551,6 +621,13 @@ function move_as_str(move) {
             if (gcode_values_str[i] !== null) {
                 gcode_line += " " + gcode_letters[i] + gcode_values_str[i].toFixed(3);
             }
+            // if (gcode_values_str[i] == undefined) {
+            //     console.log("This move is undef: " + move);
+            // } else if (gcode_values_str[i] !== null) {
+            //     gcode_line += " " + gcode_letters[i] + gcode_values_str[i].toFixed(3);
+            // } else {
+            //     console.log("This move is null: " + move);
+            // }
         }
         gcode_line += "\n";
         return gcode_line;

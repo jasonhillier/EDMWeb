@@ -18,6 +18,9 @@
 import { getLaserRasterGcodeFromOp, getLaserRasterMergeGcodeFromOp } from './cam-gcode-raster'
 import { rawPathsToClipperPaths, union, xor } from './mesh';
 
+// Rack Robotics Imports
+import { rackRoboPostProcess } from './rack-wire';
+
 import { GlobalStore } from '../index'
 
 import queue from 'queue';
@@ -49,6 +52,9 @@ export function getGcode(settings, documents, operations, documentCacheHolder, s
 
     let starttime=new Date().getTime()
 
+    // let plunges = ""; // Added by Anders
+    // let current_z = 0; // Added by Anders
+
     const QE = new queue();
     QE.timeout = 3600 * 1000;
     QE.concurrency = settings.gcodeConcurrency || 1;
@@ -60,7 +66,7 @@ export function getGcode(settings, documents, operations, documentCacheHolder, s
 
     for (let opIndex = 0; opIndex < operations.length; ++opIndex) {
         let op = expandHookGCode(operations[opIndex]);
-
+        console.log("Operation Index: ", opIndex);
         const jobDone = (g, cb) => { 
             if (g !== false) { gcode[opIndex]=g; };  cb();
         }
@@ -72,7 +78,22 @@ export function getGcode(settings, documents, operations, documentCacheHolder, s
                 if (data.event == 'onDone') {
                     gauge[props.opIndex*2+1]=100;
                     progress(gauge)
+                    // console.log("Data.gcode is: ", data.gcode);
+                    // if (data.gcode.current_z != undefined) {
+                    //     // console.log("Current Z is: ", data.gcode.current_z);
+                    //     current_z += data.gcode.current_z;
+                    // } else {
+                    //     console.log("Current Z was undefined ");
+                    // }
+                    // if (data.gcode.gcode == undefined) {
                     jobDone(data.gcode, cb)
+                    // } else if (data.gcode.plunges == undefined) {
+                    //     jobDone(data.gcode.gcode, cb)
+                    // } else {
+                    //     console.log("Gcode Plunges is: ", data.gcode.plunges);
+                    //     plunges += data.gcode.plunges;
+                    //     jobDone(data.gcode.gcode, cb)
+                    // }
                 } else if (data.event == 'onProgress') {
                     gauge[props.opIndex*2+1]=data.progress;
                     progress(gauge)
@@ -154,7 +175,9 @@ export function getGcode(settings, documents, operations, documentCacheHolder, s
 
                     } else if (op.type.substring(0, 20) === 'Virtual Wire EDM Cut') {
                         showAlert("Processing Virtual Wire EDM Cut...")
-                        invokeWebWorker(require('worker-loader!./workers/cam-wire.js'), { settings, opIndex, op, geometry, openGeometry, tabGeometry }, cb, jobIndex)
+                        invokeWebWorker(require('worker-loader!./workers/cam-wire.js'), { settings, opIndex, op, geometry, openGeometry, tabGeometry }, cb, jobIndex);
+                        // console.log("worker_response: ", worker_response);
+                        // worker_response
                     } else {
                         showAlert("Unknown operation " + op.type, 'warning')
                         cb()
@@ -169,6 +192,7 @@ export function getGcode(settings, documents, operations, documentCacheHolder, s
     } // opIndex
 
     QE.total = QE.length
+    console.log("QE total: ", QE.total);
     QE.chunk = 100 / QE.total
 
     progress(0)
@@ -185,10 +209,24 @@ export function getGcode(settings, documents, operations, documentCacheHolder, s
     })
 
     QE.start((err) => {
+        console.log("QE start");
         progress(100)
         let ellapsed=(new Date().getTime()-starttime)/1000;
         showAlert("Ellapsed: "+hhmmss(ellapsed)+String(Number(ellapsed-Math.floor(ellapsed)).toFixed(3)).substr(1),"info");
-        done(settings.gcodeStart + gcode.join('\r\n') + settings.gcodeEnd);
+        let gcode_str = gcode.join('\r\n');
+        // console.log("QE gcode_str: ", gcode_str);
+        let op = expandHookGCode(operations[0]);
+        let post_processed = rackRoboPostProcess(gcode_str, op.wearRatio, op.plungeRate, op.millStartZ, op.millRapidZ, op.cutStartZ, op.travelSpeed);
+        // let plunges = post_processed.plunges;
+        // let processed_gcode = post_processed.gcode;
+        done(settings.gcodeStart + post_processed + settings.gcodeEnd);
+        // if (plunges.length > 0) {
+            // done(settings.gcodeStart + "\r\n" + plunges + "\r\n" + gcode.join('\r\n') + settings.gcodeEnd);
+        // done(settings.gcodeStart + "\r\n" + plunges + "\r\n" + processed_gcode + settings.gcodeEnd);
+        // } else {
+        //     done(settings.gcodeStart + gcode.join('\r\n') + settings.gcodeEnd);
+        // }
+        console.log("QE end");
     })
 
 

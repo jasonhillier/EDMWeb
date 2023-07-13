@@ -270,6 +270,7 @@ export function getWireGcodeFromOp(settings, opIndex, op, geometry, openGeometry
         "\r\n;\r\n";
 
     if (op.hookOperationStart.length) gcode += op.hookOperationStart;
+    // console.log("op.hookOperationStart Length", op.hookOperationStart.length);
 
     gcode += getWireGcode({
         paths: camPaths,
@@ -294,7 +295,7 @@ export function getWireGcodeFromOp(settings, opIndex, op, geometry, openGeometry
     });
 
     if (op.hookOperationEnd.length) gcode += op.hookOperationEnd;
-
-    let post_processed = rackRoboPostProcess(gcode, op.wearRatio, op.plungeRate, op.millStartZ, op.millRapidZ, op.cutStartZ, op.travelSpeed);
-    done(post_processed)
+    // let post_processed = rackRoboPostProcess(gcode, op.wearRatio, op.plungeRate, op.millStartZ, op.millRapidZ, op.cutStartZ, op.travelSpeed, current_z);
+    // done(post_processed);
+    done(gcode);
 } // getWireGcodeFromOp

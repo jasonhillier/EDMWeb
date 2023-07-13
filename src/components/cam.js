@@ -100,7 +100,7 @@ class Cam extends React.Component {
                     percent = ((Array.isArray(threads)) ? (threads.reduce((a, b) => a + b, 0) / threads.length) : threads).toFixed(2);
                 }
             );
-            console.log(QE);
+            // console.log(QE);
             return QE;
         }
 
@@ -262,7 +262,7 @@ Cam = connect(
 
                                 //onsole.log('loadDocument: imageTagPromise');
                                 imageTagPromise(tags).then((tags) => {
-                                    console.log('loadDocument: dispatch');
+                                    // console.log('loadDocument: dispatch');
                                     dispatch(loadDocument(file, { parser, tags }, modifiers));
                                 })
                             })
