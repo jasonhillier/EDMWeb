@@ -432,6 +432,7 @@ function put_plunges_at_begining(gcode, plunges) {
     let new_gcode = "";
     let found_where_to_put_plunges = false;
     let plunges_at_line = 0;
+    console.log("Plunges fed into put_plunges_at_ begining ", plunges);
     for (let i = 0; i < lines.length; i++) {
         if (lines[i].substring(0, 13) === "; Wear Ratio:" && !found_where_to_put_plunges) {
             new_gcode += lines[i] + "\n";
@@ -440,9 +441,10 @@ function put_plunges_at_begining(gcode, plunges) {
         } else if (found_where_to_put_plunges && i === plunges_at_line) {
             new_gcode += lines[i] + "\n";
             // console.log("Found a place to put plunges at the begining");
-            for (let j = 0; j < plunges.length - 1; j++) {
-                new_gcode += plunges[j];
+            for (let j = 0; j < plunges.length; j++) {
+                new_gcode += plunges[j] + "\n";
             }
+            new_gcode += "; \n; End of initial plunges\n;\n";
         } else {
             new_gcode += lines[i] + "\n";
         }
