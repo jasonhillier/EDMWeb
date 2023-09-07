@@ -57,7 +57,7 @@
     "clipper-lib": "^6.2.1",
     "color-convert": "^1.9.0",
     "css-loader": "^0.28.5",
-    "ew.comm-server": "git+https://github.com/Rack-Robotics/ew.comm-server.git",
+    "ew.comm-server": "git+https://github.com/jasonhillier/ew.comm-server.git#wear-offset",
     "file-loader": "^0.11.2",
     "flat": "^2.0.1",
     "floyd-steinberg": "^1.0.6",

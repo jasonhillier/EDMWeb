@@ -1,18 +1,46 @@
-2023-06-20 03:02:43  
-2023-06-20 03:02:43 ***************************************************************
-2023-06-20 03:02:43         ---- LaserWeb Comm Server 4.1.000 ----        
-2023-06-20 03:02:43 ***************************************************************
-2023-06-20 03:02:43   Use  http://192.168.4.56:8000 to connect to this server.
-2023-06-20 03:02:43  
-2023-06-20 03:02:43 * Updates: 
-2023-06-20 03:02:43   Remember to check the commit log on
-2023-06-20 03:02:43   https://github.com/LaserWeb/lw.comm-server/commits/master
-2023-06-20 03:02:43   regularly, to know about updates and fixes, and then when ready
-2023-06-20 03:02:43   update accordingly by running git pull
-2023-06-20 03:02:43  
-2023-06-20 03:02:43 * Support: 
-2023-06-20 03:02:43   If you need help / support, come over to 
-2023-06-20 03:02:43   https://forum.makerforums.info/c/laserweb-cncweb/78
-2023-06-20 03:02:43 ***************************************************************
-2023-06-20 03:02:43  
-2023-06-20 03:02:43 Server binding to all local IP addresses on port: 8000
+2023-09-07 04:27:48  
+2023-09-07 04:27:48 ***************************************************************
+2023-09-07 04:27:48         ---- EDMWeb Comm Server 4.1.000 ----        
+2023-09-07 04:27:48 ***************************************************************
+2023-09-07 04:27:48   Use  http://192.168.1.180:8000 to connect to this server.
+2023-09-07 04:27:48   You can use the  IP env variable to configure.
+2023-09-07 04:27:48  
+2023-09-07 04:27:48 * Updates: 
+2023-09-07 04:27:48   Remember to check the commit log on
+2023-09-07 04:27:48   https://github.com/Rack-Robotics/ew.comm-server/commits/master
+2023-09-07 04:27:48   regularly, to know about updates and fixes, and then when ready
+2023-09-07 04:27:48   update accordingly by running git pull
+2023-09-07 04:27:48  
+2023-09-07 04:27:48 * Support: 
+2023-09-07 04:27:48   If you need help / support, come over to 
+2023-09-07 04:27:48   https://forum.makerforums.info/c/laserweb-cncweb/78
+2023-09-07 04:27:48 ***************************************************************
+2023-09-07 04:27:48  
+2023-09-07 04:27:48 Server binding to IP: 127.0.0.1 on port: 8000
+2023-09-07 04:27:48 App connected! (id=0, ip=127.0.0.1)
+2023-09-07 04:27:48 Connect (0) Sending Interfaces list: USB,ESP8266,Telnet
+2023-09-07 04:27:48 Connect(0) Sending Ports list: COM7,COM6,COM5,COM4,COM3
+2023-09-07 04:27:48 INFO: Requesting Server Config 
+2023-09-07 04:28:10 App connected! (id=1, ip=127.0.0.1)
+2023-09-07 04:28:10 Connect (1) Sending Interfaces list: USB,ESP8266,Telnet
+2023-09-07 04:28:10 Connect(1) Sending Ports list: COM7,COM6,COM5,COM4,COM3
+2023-09-07 04:28:10 INFO: Requesting Server Config 
+2023-09-07 04:28:50 App connected! (id=2, ip=127.0.0.1)
+2023-09-07 04:28:50 Connect (2) Sending Interfaces list: USB,ESP8266,Telnet
+2023-09-07 04:28:50 Connect(2) Sending Ports list: COM7,COM6,COM5,COM4,COM3
+2023-09-07 04:28:50 INFO: Requesting Server Config 
+2023-09-07 04:30:07 App connected! (id=3, ip=127.0.0.1)
+2023-09-07 04:30:07 Connect (3) Sending Interfaces list: USB,ESP8266,Telnet
+2023-09-07 04:30:07 Connect(3) Sending Ports list: COM7,COM6,COM5,COM4,COM3
+2023-09-07 04:30:07 INFO: Requesting Server Config 
+2023-09-07 04:30:21 App connected! (id=4, ip=127.0.0.1)
+2023-09-07 04:30:21 Connect (4) Sending Interfaces list: USB,ESP8266,Telnet
+2023-09-07 04:30:21 Connect(4) Sending Ports list: COM7,COM6,COM5,COM4,COM3
+2023-09-07 04:30:21 INFO: Requesting Server Config 
+2023-09-07 04:30:35 INFO: wear coefficient changed to: 1
+2023-09-07 04:30:38 INFO: wear coefficient changed to: 0
+2023-09-07 04:30:38 INFO: wear coefficient changed to: -1
+2023-09-07 04:30:39 INFO: wear coefficient changed to: 0
+2023-09-07 04:30:41 INFO: wear coefficient changed to: 0
+2023-09-07 04:30:41 INFO: wear coefficient changed to: 0.01
+2023-09-07 04:30:49 INFO: Connecting to Powercore - USB,COM6,115200

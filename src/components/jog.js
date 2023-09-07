@@ -508,8 +508,9 @@ class Jog extends React.Component {
 
         return (
             <div style={{ paddingTop: 6 }} >
-                        <span className="badge badge-default badge-notify" title="Items in Queue" id="machineStatus" style={{ marginRight: 5 }}>Not Connected</span>
+                        <span className="badge badge-default badge-notify" title="Machine Status" id="machineStatus" style={{ marginRight: 5 }}>Not Connected</span>
                         <span className="badge badge-default badge-notify" title="Items in Queue" id="queueCnt" style={{ marginRight: 5 }}>Queued: 0</span>
+                        <span className="badge badge-default badge-warn" title="Computed Z offset for electrode wear" id="wearOffset" style={{ marginRight: 5 }}>Wear Z Offset: 0</span>
                         <div id="mPosition" className="well well-sm" style={{ marginBottom: 7}}>
                             <div id="rX" className="drolabel">X:</div>
                             <div className="btn-group dropdown" style={{ marginLeft: -3 }}>

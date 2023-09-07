@@ -18,6 +18,7 @@ import io from 'socket.io-client';
 var socket, connectVia;
 var serverConnected = false;
 var machineConnected = false;
+var powercoreConnected = false;
 var jobStartTime = -1;
 var accumulatedJobTime = 0;
 var playing = false;
@@ -26,8 +27,11 @@ var m0 = false;
 var queueEmptyCount = 0;
 var laserTestOn = false;
 var firmware, fVersion, fDate;
+var powercoreWearOffset = 0;
 var xpos, ypos, zpos, apos;
 var xOffset, yOffset, zOffset, aOffset;
+
+const DEFAULT_WEAR_COEFF = 0.01;
 
 const formatPorts=(data)=>{
     return data.map((item)=>{
@@ -41,7 +45,7 @@ class Com extends React.Component {
         super(props);
         let {comInterfaces, comPorts, comAccumulatedJobTime} = this.props.settings;
         accumulatedJobTime = comAccumulatedJobTime;
-        this.state = {comInterfaces: comInterfaces, comPorts: comPorts};
+        this.state = {comInterfaces: comInterfaces, comPorts: comPorts, wearCoeff: DEFAULT_WEAR_COEFF};
     }
 
     componentDidMount() {
@@ -186,6 +190,29 @@ class Com extends React.Component {
                 //set the actual machine IP
             }
             console.log('activeIP: ' + data);
+        });
+
+        socket.on('powercoreConnectStatus', function (data) {
+            console.log('powercoreConnectStatus: ' + data);
+            if (data.indexOf('connected') >= 0) {
+                powercoreConnected = true;
+                $('#powercoreConnect').addClass('disabled');
+                $('#powercoreDisconnect').removeClass('disabled');
+                CommandHistory.write('Powercore connected', CommandHistory.SUCCESS);
+
+                //retransmit setting
+                that.changeWearCoeff(that.state.wearCoeff);
+            } else {
+                powercoreConnected = false;
+                $('#powercoreConnect').removeClass('disabled');
+                $('#powercoreDisconnect').addClass('disabled');
+                CommandHistory.error('Powercore disconnected')
+            }
+        });
+
+        socket.on('powercoreWearOffset', function (data) {
+            powercoreWearOffset = parseInt(data);
+            $('#wearOffset').html('Wear Z Offset: ' + data);
         });
 
         socket.on('connectStatus', function (data) {
@@ -494,6 +521,38 @@ class Com extends React.Component {
         }
     }
 
+    handleConnectPowercore() {
+        var connectVia = this.props.settings.connectPowercoreVia || 'USB';
+        var connectPort = (this.props.settings.connectPowercorePort || '').trim();
+        var connectBaud = this.props.settings.connectPowercoreBaud || '115200';
+        switch (connectVia) {
+            case 'USB':
+                if (!connectPort) {
+                    CommandHistory.write('Could not connect to Powercore! -> please select port', CommandHistory.DANGER);
+                    break;
+                }
+                if (!connectBaud) {
+                    CommandHistory.write('Could not connect to Powercore! -> please select baudrate', CommandHistory.DANGER);
+                    break;
+                }
+                CommandHistory.write('Connecting Powercore @ ' + connectVia + ',' + connectPort + ',' + connectBaud + 'baud', CommandHistory.INFO);
+                socket.emit('connectToPowercore', connectVia + ',' + connectPort + ',' + connectBaud);
+                break;
+        }
+    }
+
+    changeWearCoeff(e)
+    {
+        this.setState({wearCoeff: e});
+        console.log("set wear coefficient: " + e);
+        socket.emit('powercoreWearCoeff', e);
+    }
+
+    handleDisconnectPowercore() {
+        CommandHistory.write('Disconnecting Powercore', CommandHistory.INFO);
+        socket.emit('powercoreClosePort');
+    }
+
     handleDisconnectMachine() {
         CommandHistory.write('Disconnecting Machine', CommandHistory.INFO);
         socket.emit('closePort');
@@ -532,6 +591,25 @@ class Com extends React.Component {
                             <Button id="disconnect" bsClass="btn btn-xs btn-danger" onClick={(e)=>{this.handleDisconnectMachine(e)}}><Glyphicon glyph="trash" /> Disconnect</Button>
                         </ButtonGroup>
                     </Panel>
+                    <Panel collapsible header="Powercore Connection" bsStyle="primary" eventKey="2" defaultExpanded={true}>
+                        <SelectField {...{ object: settings, field: 'connectPowercoreVia', setAttrs: setSettingsAttrs, data: ['USB'], defaultValue: 'USB', description: 'Powercore Connection', selectProps: { clearable: false } }} />
+                        <div>
+                            <SelectField {...{ object: settings, field: 'connectPowercorePort', setAttrs: setSettingsAttrs, data: formatPorts(this.state.comPorts), defaultValue: '', description: 'USB / Serial Port', selectProps: { clearable: false } }} />
+                            <SelectField {...{ object: settings, field: 'connectPowercoreBaud', setAttrs: setSettingsAttrs, data: ['250000', '230400', '115200', '57600', '38400', '19200', '9600'], defaultValue: '115200', description: 'Baudrate', selectProps: { clearable: false } }} />
+                        </div>
+                        <ButtonGroup>
+                            <Button id="powercoreConnect" bsClass="btn btn-xs btn-info" onClick={(e)=>{this.handleConnectPowercore(e)}}><Icon name="share" /> Connect</Button>
+                            <Button id="powercoreDisconnect" bsClass="btn btn-xs btn-danger" onClick={(e)=>{this.handleDisconnectPowercore(e)}}><Glyphicon glyph="trash" /> Disconnect</Button>
+                        </ButtonGroup>
+                        <br/>
+                        <br/>
+                        <FormGroup>
+                            <InputGroup>
+                                <span class="input-group-addon">Wear Coefficient:</span>
+                                <Input id="wearCoefficient" type="number" className="form-control numpad input-sm text-right" value={this.state.wearCoeff} onChangeValue={(e) => { this.changeWearCoeff(e) }} />
+                            </InputGroup>
+                        </FormGroup>
+                    </Panel>
                 </PanelGroup>
             </div>
         )
@@ -556,6 +634,12 @@ function updateStatus(data) {
     // Smoothieware: <Idle,MPos:49.5756,279.7644,-15.0000,WPos:0.0000,0.0000,0.0000>
     // till GRBL v0.9: <Idle,MPos:0.000,0.000,0.000,WPos:0.000,0.000,0.000>
     // since GRBL v1.1: <Idle|WPos:0.000,0.000,0.000|Bf:15,128|FS:0,0|Pn:S|WCO:0.000,0.000,0.000> (when $10=2)
+
+    if (!powercoreConnected)
+    {
+        $("#wearOffset").removeClass('badge-ok');
+        $("#wearOffset").addClass('badge-warn');
+    }
 
     // Extract state
     var state = data.substring(data.indexOf('<') + 1, data.search(/(,|\|)/));
@@ -624,6 +708,12 @@ function updateStatus(data) {
 //        if ($('#alarmmodal').is(':visible')) {
 //            $('#alarmmodal').modal('hide');
 //        }
+
+        if (powercoreConnected)
+        {
+            $("#wearOffset").removeClass('badge-notify');
+            $("#wearOffset").addClass('badge-ok');
+        }
     }
     $('#machineStatus').html(state);
 }
