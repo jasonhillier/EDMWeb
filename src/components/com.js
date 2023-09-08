@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux';
 
-import { PanelGroup, Panel, Tooltip, OverlayTrigger, FormControl, InputGroup, ControlLabel, FormGroup, ButtonGroup, Label, Collapse, Badge, ButtonToolbar, Button, Glyphicon } from 'react-bootstrap';
+import { PanelGroup, Panel, Tooltip, OverlayTrigger, FormControl, InputGroup, ControlLabel, FormGroup, ButtonGroup, Label, Collapse, Badge, ButtonToolbar, Button, Glyphicon, InputGroupAddon } from 'react-bootstrap';
 import { Input, TextField, NumberField, ToggleField, SelectField } from './forms';
 import { runStatus } from './jog.js';
 import { setSettingsAttrs } from '../actions/settings';
@@ -605,7 +605,7 @@ class Com extends React.Component {
                         <br/>
                         <FormGroup>
                             <InputGroup>
-                                <span class="input-group-addon">Wear Coefficient:</span>
+                                <InputGroup.Addon>Wear Coefficient:</InputGroup.Addon>
                                 <Input id="wearCoefficient" type="number" className="form-control numpad input-sm text-right" value={this.state.wearCoeff} onChangeValue={(e) => { this.changeWearCoeff(e) }} />
                             </InputGroup>
                         </FormGroup>
